@@ -46,14 +46,14 @@ $(document).ready(function () {
         let currentSentence = sentences[sentenceIndex];
         let currentLetter = currentSentence[letterIndex];
 
-        if (start == undefined) {
+        if (start == undefined) { //Start timer once first key is pressed
             start = event.timeStamp;
         }
 
         $('#yellow-block').css("left", "+=17.5px"); //moves yellow block to the right
 
         letterIndex++; //advance to next letter
-        let nextLetter = currentSentence[letterIndex];
+        let nextLetter = currentSentence[letterIndex]; //get next letter from current sentence at position [letterIndex]
         currentLetterDiv.text(nextLetter);
 
 
@@ -68,6 +68,10 @@ $(document).ready(function () {
             }
         }
 
+        //Keep going until letterIndex = currentsentence.length
+        // 
+        ///
+        ////
         //Begin code to reset variables upon sentence completion
         if (letterIndex == currentSentence.length) {
             $('#sentence').empty();
@@ -86,9 +90,9 @@ $(document).ready(function () {
 
         //Begin code to calculate score and display results
         if (sentenceIndex > sentences.length - 1) {
-            finish = event.timeStamp;
-            let time = (finish - start);
-            time /= 60000;
+            finish = event.timeStamp;//get final time
+            let time = (finish - start); //calc time by subtracting start from final
+            time /= 60000; 
             let speed = Math.round((54 / time) - (errors * 2));
             $('#target-letter').text('Your score is ' + speed + ' words per minute');
         
