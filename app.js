@@ -1,6 +1,10 @@
 $(document).ready(function () {
     //create array to contain sentences
-    let sentences = ['ten ate neite ate nee enet ite ate inet ent eate', 'Too ato too nOt enot one totA not anot tOO aNot', 'oat itain oat tain nate eate tea anne inant nean', 'itant eate anot eat nato inate eat anot tain eat', 'nee ene ate ite tent tiet ent ine ene ete ene ate'];
+    let sentences = ['The sky is clear; the stars are twinkling.',
+        'If Purple People Eaters are real where do they find?',
+        'The clock within this blog and the clock on my laptop.',
+        'If the Easter Bunny and the Tooth Fairy had babies would?',
+        'They got there early, and they got really good seats.'];
 
     let sentenceIndex = 0;
     let letterIndex = 0;
@@ -63,7 +67,25 @@ $(document).ready(function () {
             if (event.which === currentLetter.charCodeAt()) {
                 $("#feedback").append("<span class = 'glyphicon glyphicon-ok'></span>"); //set ok icon
             } else {
-                    $("#feedback").append("<span class = 'glyphicon glyphicon-remove'></span>"); //set incorrect icon
+                    $("#feedback").append('<img src = "bomb.png"/>'); //set incorrect icon
+                    let soundEffect = new Audio('boom.mp3');
+                    document.body.style.backgroundColor = 'rgba(0,0,0,0.4)';
+
+                    
+                    setTimeout(function(){
+                        document.body.style.backgroundColor = 'yellow'; 
+                        }, 10);
+                        
+                    setTimeout(function(){
+                        document.body.style.backgroundColor = '#fff'; 
+
+                        }, 40);
+
+                    
+                   
+                    soundEffect.play();
+                    
+                    
                     errors++; //add +1 to error count
             }
         }
@@ -93,8 +115,19 @@ $(document).ready(function () {
             finish = event.timeStamp;//get final time
             let time = (finish - start); //calc time by subtracting start from final
             time /= 60000; 
-            let speed = Math.round((54 / time) - (errors * 2));
+            let speed = Math.round((50 / time) - (errors * 2));
             $('#target-letter').text('Your score is ' + speed + ' words per minute');
+
+            if (speed < 15) {
+                let laugh = new Audio('laugh.mp3');
+                laugh.play();
+            } else if (speed > 15 && speed < 30) {
+                let ok = new Audio('ok.mp3');
+                ok.play();
+            } else {
+                let cheer = new Audio('cheer.mp3');
+                cheer.play();
+            }
         
             //begin timout function to time asking if user wants to try again
             setTimeout(function () {
